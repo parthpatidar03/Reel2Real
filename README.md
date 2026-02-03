@@ -40,14 +40,7 @@ Social media users frequently save Instagram Reels featuring restaurants, travel
 ### 🗺️ Map-Integrated Search
 - **Interactive Map View**: Mapbox GL JS visualization of all saved places
 - **Geospatial Queries**: Find venues within custom radius using MongoDB 2dsphere indexing
-- **Distance Calculation**: Real-time proximity-based filtering
 - **List/Map Toggle**: Seamlessly switch between map and list views
-
-### 📋 Itinerary Management
-- **Create Collections**: Organize places into custom itineraries
-- **Collaborative Planning**: Share itineraries with friends
-- **Route Optimization**: Visualize multiple venues on a single map
-- **Notes & Tags**: Add personal context to saved places
 
 ### 🔐 User Management
 - **JWT Authentication**: Secure user sessions with bcrypt password hashing
@@ -95,8 +88,7 @@ Social media users frequently save Instagram Reels featuring restaurants, travel
 | | Google Places API | Location enrichment and validation |
 | | ffmpeg | Video/audio processing |
 | | youtube-dl-exec | Video URL downloading |
-| **DevOps** | Docker Compose | Local development orchestration |
-| | Git + GitHub | Version control |
+
 
 ---
 
