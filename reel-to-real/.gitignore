@@ -1,0 +1,113 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+*.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Uploads and media files
+uploads/
+**/uploads/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.mp3
+*.wav
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*_frames/
+temp/
+tmp/
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Redis
+dump.rdb
+*.rdb
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+*.test.local
+
+# Cache
+.cache/
+.parcel-cache/
+.npm/
+.eslintcache
+.stylelintcache
+
+# Misc
+*.pem
+.vercel
+.turbo
+
+# Docker
+.dockerignore
+
+# Misc
+*.pem
+.vercel

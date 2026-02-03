@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: reel-to-real-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=reel-to-real
+    networks:
+      - reel-to-real-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: reel-to-real-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - reel-to-real-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: reel-to-real-backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+      - redis
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/reel-to-real
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=dev-secret-change-in-production
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_PLACES_API_KEY=${GOOGLE_PLACES_API_KEY}
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - uploads:/app/uploads
+    networks:
+      - reel-to-real-network
+    command: npm run dev
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: reel-to-real-worker
+    depends_on:
+      - mongodb
+      - redis
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongodb:27017/reel-to-real
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_PLACES_API_KEY=${GOOGLE_PLACES_API_KEY}
+      - WORKER_CONCURRENCY=2
+    volumes:
+      - ./worker:/app
+      - /app/node_modules
+      - uploads:/app/uploads
+    networks:
+      - reel-to-real-network
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: reel-to-real-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+      - VITE_MAPBOX_TOKEN=${VITE_MAPBOX_TOKEN}
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - reel-to-real-network
+    command: npm run dev
+
+volumes:
+  mongo-data:
+  redis-data:
+  uploads:
+
+networks:
+  reel-to-real-network:
+    driver: bridge
